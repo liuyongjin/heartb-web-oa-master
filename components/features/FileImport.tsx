@@ -14,8 +14,8 @@ export const FileImport: React.FC<FileImportProps> = ({ onFileImport }) => {
   const [files, setFiles] = useState<{ key: string; label: string }[]>([]);
 
   // Fetch file list from API
-  useEffect(() => {
-    const fetchFiles = async () => {
+  const fetchFiles = async () => {
+    try {
       const response = await fetch("/api/files");
 
       if (response.ok) {
@@ -23,8 +23,12 @@ export const FileImport: React.FC<FileImportProps> = ({ onFileImport }) => {
 
         setFiles(data.files);
       }
-    };
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchFiles();
   }, []);
 

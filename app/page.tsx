@@ -6,8 +6,6 @@ import { title, subtitle } from "@/components/primitives";
 import { FileImport } from "@/components/features/FileImport";
 import { ChaptersSidebar } from "@/components/features/ChaptersSidebar";
 import { ChapterEditor } from "@/components/features/ChapterEditor";
-
-// Type definitions for our chapter structure
 interface Chapter {
   id: string;
   title: string;
@@ -27,7 +25,7 @@ export default function Home() {
   // State for managing chapters
   const [chapters, setChapters] = useState<Chapter[]>(defaultChapters);
   const [selectedChapterId, setSelectedChapterId] = useState<string | null>(
-    "1",
+    null,
   );
   const [cursorPosition, setCursorPosition] = useState<number | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -304,13 +302,6 @@ export default function Home() {
     }
   };
 
-  // Finish import function (placeholder for future functionality)
-  const finishImport = () => {
-    // This function could be used to save the imported chapters to a database
-    // or perform other actions when the import is complete
-    alert("Import completed successfully!");
-  };
-
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
       <div className="inline-block max-w-lg text-center justify-center">
@@ -320,10 +311,10 @@ export default function Home() {
           Upload a novel text file to automatically divide it into chapters
         </h2>
       </div>
-      {/* File import */}
-      <FileImport onFileImport={handleFileImport} />
-      <div className="w-full max-w-7xl">
-        <div className="flex flex-row">
+      <div className="w-full max-w-7xl border border-divider">
+        {/* File import */}
+        <FileImport onFileImport={handleFileImport} />
+        <div className="flex flex-row mr-4 ml-4 mt-4 pb-16">
           {/* Chapters sidebar */}
           <ChaptersSidebar
             chapters={chapters}
@@ -333,18 +324,15 @@ export default function Home() {
             onMergeWithNextChapter={mergeWithNextChapter}
           />
           {/* Chapter editor */}
-          {selectedChapter && (
-            <ChapterEditor
-              chapter={selectedChapter}
-              textareaRef={textareaRef}
-              onContentChange={handleContentChange}
-              onFinishImport={finishImport}
-              onInsertChapterSplit={insertChapterSplit}
-              onSplitChapter={splitChapter}
-              onTextareaClick={handleTextareaClick}
-              onTextareaKeyUp={handleTextareaKeyUp}
-            />
-          )}
+          <ChapterEditor
+            chapter={selectedChapter || defaultChapters[0]}
+            textareaRef={textareaRef}
+            onContentChange={handleContentChange}
+            onInsertChapterSplit={insertChapterSplit}
+            onSplitChapter={splitChapter}
+            onTextareaClick={handleTextareaClick}
+            onTextareaKeyUp={handleTextareaKeyUp}
+          />
         </div>
       </div>
     </section>

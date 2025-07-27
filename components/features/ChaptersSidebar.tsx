@@ -16,7 +16,7 @@ import {
 } from "@nextui-org/react";
 import { cn } from "@nextui-org/theme";
 import React from "react";
-// Chapter type definition
+
 interface Chapter {
   id: string;
   title: string;
@@ -49,7 +49,7 @@ export const ChaptersSidebar: React.FC<ChaptersSidebarProps> = ({
   return (
     <div
       className={cn(
-        "relative flex h-full w-96 max-w-[384px] flex-1 flex-col !border-r-small border-divider pr-6 transition-[transform,opacity,margin] duration-250 ease-in-out",
+        "relative flex h-full w-96 max-w-[384px] flex-1 flex-col pr-6 transition-[transform,opacity,margin] duration-250 ease-in-out",
       )}
       id="menu"
     >
@@ -92,62 +92,60 @@ export const ChaptersSidebar: React.FC<ChaptersSidebarProps> = ({
                     <p className="text-left mr-1 truncate">{chapter.title}</p>
 
                     <div className="ml-auto flex">
-                      {chapter.id === selectedChapterId && (
-                        <Dropdown>
-                          <DropdownTrigger>
-                            <div className="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer hover:bg-default-100">
-                              <Icon
-                                className="text-default-500"
-                                icon="ph:dots-three-bold"
-                                width={20}
-                              />
-                            </div>
-                          </DropdownTrigger>
-                          <DropdownMenu aria-label="Chapter actions">
-                            <DropdownSection showDivider title="Action">
-                              <DropdownItem
-                                key="combine"
-                                onPress={() => {
-                                  onMergeWithNextChapter();
-                                }}
-                              >
-                                <div className="flex items-center">
-                                  <Icon
-                                    className="mr-2"
-                                    icon="iconoir:vertical-merge"
-                                    width={20}
-                                  />
-                                  <div>
-                                    <p>
-                                      <strong>Combine</strong> with next chapter
-                                    </p>
-                                    <p className="text-default-500">
-                                      Combine this chapter with the next one
-                                    </p>
-                                  </div>
+                      <Dropdown>
+                        <DropdownTrigger>
+                          <div className="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer hover:bg-default-100">
+                            <Icon
+                              className="text-default-500"
+                              icon="ph:dots-three-bold"
+                              width={20}
+                            />
+                          </div>
+                        </DropdownTrigger>
+                        <DropdownMenu aria-label="Chapter actions">
+                          <DropdownSection showDivider title="Action">
+                            <DropdownItem
+                              key="combine"
+                              onPress={() => {
+                                onMergeWithNextChapter();
+                              }}
+                            >
+                              <div className="flex items-center">
+                                <Icon
+                                  className="mr-2"
+                                  icon="iconoir:vertical-merge"
+                                  width={20}
+                                />
+                                <div>
+                                  <p>
+                                    <strong>Combine</strong> with next chapter
+                                  </p>
+                                  <p className="text-default-500">
+                                    Combine this chapter with the next one
+                                  </p>
                                 </div>
-                              </DropdownItem>
-                            </DropdownSection>
-                            <DropdownSection title="Danger Zone">
-                              <DropdownItem
-                                key="delete"
-                                className="text-danger"
-                                color="danger"
-                                onPress={() => handleDeleteChapter(chapter.id)}
-                              >
-                                <div className="flex items-center">
-                                  <Icon
-                                    className="mr-2"
-                                    icon="mdi:delete-alert"
-                                    width={20}
-                                  />
-                                  Delete this chapter
-                                </div>
-                              </DropdownItem>
-                            </DropdownSection>
-                          </DropdownMenu>
-                        </Dropdown>
-                      )}
+                              </div>
+                            </DropdownItem>
+                          </DropdownSection>
+                          <DropdownSection title="Danger Zone">
+                            <DropdownItem
+                              key="delete"
+                              className="text-danger"
+                              color="danger"
+                              onPress={() => handleDeleteChapter(chapter.id)}
+                            >
+                              <div className="flex items-center">
+                                <Icon
+                                  className="mr-2"
+                                  icon="mdi:delete-alert"
+                                  width={20}
+                                />
+                                Delete this chapter
+                              </div>
+                            </DropdownItem>
+                          </DropdownSection>
+                        </DropdownMenu>
+                      </Dropdown>
                     </div>
                   </div>
                 </CardHeader>
